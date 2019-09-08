@@ -1,0 +1,50 @@
+Singleton đảm bảo chỉ duy nhất một instance được tạo ra và nó sẽ cung cấp cho bạn một method để có thể truy xuất được instance duy nhất đó ở mọi lúc mọi nới trong chương trình.
+
+Sử dụng singleton khi:
+- Đảm bảo rằng chỉ có 1 instance của một lớp
+- Việc quản lý truy cập có thể tốt hơn bởi vì chỉ có 1 instance duy nhất
+- Quản lý số lượng instance của một lớp trong giới hạn nhất định
+
+Cách implement:
+- private constructor để hạn chế truy cập từ bên ngoài
+- đặt private static final variable để đảm bảo biến chỉ được khởi tạo trong class
+- có một method public static để return instance được khởi tạo ở trên
+
+1. Eager Initialization
+Ưu điểm:
+- Đơn giản
+Nhược điểm:
+- Instance có thể đã được khởi tạo mà không dùng đến
+
+2. Static block Initialization
+Ưu điểm:
+- Đơn giản
+- Handle được exception hoặc các xử lý khác
+Nhược điểm:
+- Instance có thể dược khởi tạo mà không sử dụng
+
+3. Lazy Initialization
+Ưu điểm:
+- Đơn giản
+- Khi nào được sử dụng thì mới khởi tạo instance
+- Hoạt động tốt trong môi trường đơn luông (single thread)
+Nhược điểm:
+- Thao tác create instance có thể lâu có lần sử dụng đầu tiên
+- Nếu có nhiều luồng (multi thread) cùng chạy và cùng gọi hàm getInstance tại cùng một thời điểm thì có thể có nhiều hơn 1 instance.
+
+4. Thread Safe Singleton
+Ưu điểm:
+- Hoạt động tốt trong môi trường multi thread
+Nhược điểm:
+- Chạy chậm
+- Tốn hiệu năng
+- Bất kỳ một Thread nào đến phải chờ nếu có một thread khác đang sử dụng
+
+Tối ưu:
+- Khi instance = null thì mới lock thread.
+- Khai báo volatile cho instance để tránh sai sót trong quá trình tối ưu hóa của trình biên dịch
+
+5. Enum cũng là implement của singleton pattern.
+
+6. Bill Pugh Singleton: đây là cách được khuyến khích, không sử dụng synchronized (tốn hiệu năng).
+The static inner class không được load vào memory cho đến khi nào method getInstance được gọi.
