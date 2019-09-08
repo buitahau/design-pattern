@@ -1,0 +1,33 @@
+Factory Pattern là một trong những Pattern thuộc nhóm "Creational Design Pattern". Nhiệm vụ của Factory Pattern là
+quản lý và trả về các đối tượng theo yêu cầu, giúp cho việc khởi tạo đối tượng một cách linh hoạt hơn.
+
+Factory Pattern là một nhà máy, và nhà máy này sẽ sản xuất các đối tượng theo yêu cầu của chúng ta.
+Trong Factory Pattern, chúng ta tạo ra đối tượng mà không để lộ logic tạo đối tượng ở phía người dùng và tham chiếu
+đến đối tượng mới được tạo ra bằng cách sử dụng một interface hoặc một class chung.
+
+Factory Pattern được sử dụng khi có một class cha (super class) với nhiều class con (sub-class), dựa trên đầu vào và
+phải trả về 1 trong những class con đó.
+
+Sử dụng Factory Pattern khi:
+- Chúng ta có một super class với nhiều class con và dựa trên đầu vào, chúng ta cần trả về một class con.
+- Chúng ta không biết sau này sẽ cần đến những lớp con nào nữa. Khi cần mở rộng, chúng ta chỉ cần tạo ra sub class và
+ implement thêm vào factory method cho việc khởi tạo sub class này.
+
+Cách implement:
+- Super Class: một super class trong Factory Pattern có thể làm một interface, abstract class hay một class thông
+thường.
+- Sub Class: các sub class sẽ implement các phương thức của super class theo business riêng của nó.
+- Factory Class: một class chịu trách nhiệm khởi tạo các đối tượng sub class dựa trên tham số đầu vào. Chú ý: lớp nào
+ là singleton hoặc cung cấp một public static method cho việc truy xuất và khỏi tạo các đối tượng. Factory class sử
+ dụng if - else hoặc switch - case để xác định class con đầu ra.
+
+Lợi ích của Factory Pattern:
+- Giúp làm giảm sự phụ thuộc giữa các module, cung cấp 1 hướng tiếp cận với Interface thay các implement.
+- Giúp chương trình độc lập với những lớp cụ thể mà chúng ta cần tạo một đối tượng. Code ở phía client không bị thay
+đổi hay ảnh hưởng khi thay đổi logic ở factory hay sub-class.
+- Mở rộng code dễ dàng hơn, khi cần mở rộng, chỉ việc tạo ra sub class và implement thêm vào factory method.
+- Khởi tạo các đối tượng mà che giáu xử lý logic của việc khởi tạo đó. Người dùng không biết logic thực sự được khởi
+tạo bên dưới factory.
+- Dễ dàng quản lý life circle của các đối tượng được tạo bởi Facroty Pattern.
+- Thống nhất về naming convention, giúp cho developer hiểu về cấu trúc của source code dễ dàng hơn.
+
