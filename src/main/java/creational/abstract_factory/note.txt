@@ -1,0 +1,26 @@
+Abstract Factory là cách tạo ra một super-factory dùng để tạo ra các factory khác, hay còn được gọi là factory của
+factory. Trong abstract factory pattern, có một interface có nhiệm vụ tạo ra một factory của các đối tượng có liên
+quan với nhau mà không cần phải chỉ ra trực tiếp các class của đối tượng.
+
+Cách implement:
+- AbstractFactory: Khai báo dạng interface hoặc abstract class chứa các phương thức để tạo ra các đối tượng abstract
+factory.
+- ConcreteFactory: Xây dựng cài đặt các phương thức trên Abstract Factory để tạo các factory cụ thể
+- AbstractProduct: Khai báo dạng interface hoặc abstract class chứa các phương thức để tạo ra các đối tượng abstract
+product.
+- Product: Cài đặt các phương thức trên abstract product để tạo ra các đối tượng cụ thể.
+
+Chú ý: Các sub factory có thể được implement từ interface hoặc extend từ class giống hoặc khác
+nhau. Chúng ta có thể tùy chỉnh một số thay đổi tùy theo dự án.
+
+Ví dụ:
+
+Một doanh nghiệp sản xuất sản xuất bàn, ghế từ nhưa và gỗ. Doanh nghiệp này có 2 nhà máy, một nhà máy sản
+xuất bàn, ghế, đồ chơi từ nhựa và nhà máy kia từ gỗ.
+
+Lợi ích của Abstract Factory Pattern:
+- Giống như Factory Pattern
+- Tránh được việc sử dụng điều kiện logic bên trong Factory Pattern. Khi một Factory method lớn (có quá nhiều xử lý
+if - else hay switch - case), chúng ta nên sử dụng theo mô hình Abstract Factory để dễ quản lý hơn.
+
+
