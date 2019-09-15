@@ -1,0 +1,54 @@
+Builder pattern là mẫu thiết kế đối tượng được tạo ra để xây dựng một đối tượng phức tạp bằng cách sử dụng các đối
+tượng đơn giản và sử dụng cách tiếp cận từng bước, việc xây dựng các đối tượng độc lập với các đối tượng khác.
+
+Builder pattern được xây dựng để khắc phục một số nhược điểm của Factory pattern và Abstract Factory pattern khi mà
+object có nhiều thuộc tính.
+
+Có ba vấn đề chính với Factory Pattern và Abstract Factory Pattern:
+- Quá nhiều tham số phải truyền vào từ phía client đến Factory class.
+- Một tham số có thể là tùy chọn, nhưng trong Factory Pattern, chùng ta phải gửi tất cả các tham số, với tham số tùy
+chọn, nếu không nhập gì thì sẽ truyền null.
+- Nếu một object có quá nhiều thuộc tính thì việc tạo sẽ phức tạp.
+
+Cách implement:
+- Product: đại diện cho đối tượng cần tạo, đối tượng này phức tạp, có nhiều thuộc tính. Việc khởi tạo đối tượng chỉ
+có thể thông qua builder.
+- Builder: là abstract class hoặc interface khai báo phương thức tạo đối tượng.
+- ConcreteBuilder: kế thừa Builder, và cài đặt chi tiết cách tạo ra đối tượng.
+- Director/ Client: là nơi sẽ gọi tới Builder để tạo ra đối tượng.
+
+Ví dụ:
+- Sử dụng Builder cho việc gọi món và thanh toán tại một cửa hàng ăn nhanh
+(xem package fast food)
+- Một tài khoản nhân hàng bao gồm các thông tin: Tên chủ tài khoản, số tài khoản, địa chỉ email, nhận thông báo, sử
+dụng mobile banking. Một tài khoản được tạo phải có tên chủ tài khoản và số tài khoản. Các thông tin khác tùy theo
+nhu cầu của khách hàng có thể đăng ký sử dụng (xem package bank).
+
+Lưu ý: với ví dụ Bank, class BankAccount là immutable có hàm khởi tạo là private, nên chỉ có một cách duy nhất đề lấy
+đối tượng BankAccount là thông qua builder.
+
+Lợi ích của Builder Pattern:
+- Hỗ trợ, loại bớt việc phải viết nhiều constructor.
+- Code dễ đọc, dễ bảo trì khi cần 4,5 thuộc tính để tạo một đối tượng.
+- Ít bị lỗi do việc gán sai tham số khi mà có nhiều tham số trong constructor.
+- Đối tượng được xây dựng an toàn hơn, bởi vì nó đã được tạo hoàn chỉnh trước khi sử dụng.
+- Cung cấp quyền kiểm soát trong quá trình xây dựng. Chúng ta có thể thêm xử lý ràng buộc trước khi đối tượng được
+trả về người dùng.
+- Có thể tạo đối tượng immutable.
+
+Nhược điểm:
+- Duplicate code khá nhiều, cần copy các thuộc tính từ class Product sang class Builder.
+- Tăng độ phức tạp.
+
+Sử dụng Builder Pattern khi:
+- Tạo một đối tượng phức tạp. một số required và một số optional.
+- Khi có nhiều hàm constructor.
+- Muốn tách rời quá trình xây dựng một đối tượng phức tạp.
+- Muốn kiểm soát quá trình xây dựng.
+
+So sánh Builder Pattern và Factory Pattern:
+Trong Builder Pattern, đối tượng được xây dựng từng bước (step by step). Mỗi bước sẽ có các đơn vị logic nhỏ kèm theo
+ trong đó, và cũng sẽ có một chuỗi liên quan. Nó sẽ bắt đầu từ bước 1, tối đa là bước n và cuối cùng là trả về đối
+ tượng.
+Trong Factory Pattern, bạn sẽ không thấy được đối tượng phức tạp được xây dựng như thế nào, nó không có từng bước xây
+ dựng đối tượng.
