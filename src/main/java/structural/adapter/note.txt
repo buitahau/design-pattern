@@ -1,0 +1,34 @@
+Adapter cho phép các interface không liên quan đến nhau có thể làm việc cùng nhau. Đối tượng giúp kết nối các
+interface là Adapter.
+
+Adapter Pattern giữ vai trò trung gian giữa hay lớp, chuyển đổi interface của một hay nhiều lớp có sẵn thành một
+interface khác, thích hợp cho lớp đang viết. Điều này cho phép các lớp có interface khác nhau có thể dễ dàng giao
+tiếp với nhau thông qua interface trung gian, không cần thay đổi code của lớp có sẵn cũng như lớp đang viết.
+
+Adapter Pattern còn được gọi là Wrapper Pattern, nó cung cấp một interface bọc ngoài tương thích cho một hệ thống đã
+có sẵn, có dữ liệu, và các action phù hợp, nhưng interface không tương thích với lớp đang viết.
+
+Cách implement:
+- Adaptee: định nghĩa interface không tương thích, cần được tích hợp.
+- Adapter: lớp tích hợp, giúp cho interface không tương thích thích hợp được với interface đang làm việc. Thực hiện
+việc chuyển đổi interface cho Adaptee và kết nối Adaptee với Client.
+- Target: một interface chứa các chức năng được sử dụng vởi Client.
+- Client: lớp sử dụng các đối tượng có interface Target.
+
+Lợi ích của Adapter Pattern:
+- Cho phép nhiều đối tượng có interface giao tiếp khác nhau có thể tương tác và giao tiếp với nhau.
+- Tăng khả năng sử dụng lại thư viện với interface không thay đổi do không có mã nguồn.
+
+Nhược điểm:
+- Tất cả các yêu cầu sẽ được chuyển tiếp, do đó tăng thêm một ít chi phí.
+- Đôi khi có quá nhiều Adapter được thiết kế trong một chuỗi Adapter trước khi đến yêu cầu thực sự được gọi.
+
+Sử dụng Adapter Pattern khi:
+- Adapter Pattern giúp nhiều lớp có thể làm việc với nhau dễ dàng mà bình thường không thể. Một trường hợp thường gặp
+ là khi không thể kế thừa lớp A, nhưng muốn có một lớp B có những xử lý tương tự lớp A. Khi đó chúng ta có thể cài
+ đặt lớp B theo Object Adapter, các xử lý của B sẽ gọi những xử lý của A khi cần.
+- Khi muốn sử dụng một lớp đã tồn tại trước đó, nhưng interface đó không phù hợp với hoàn cảnh mong muốn.
+- Khi muốn tạo ra những lớp có khả năng sử dụng lại, chúng phối hợp với các lớp không liên quan, hay những lớp không
+thể đoán trước được và những lớp này không có những interface tương thích.
+- Khi cần có sự chuyển đổi interface từ nhiều nguồn khác nhau.
+- Khi cần đảm bảo nguyên tắc Open/Close trong một ứng dụng.
