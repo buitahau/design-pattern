@@ -1,0 +1,7 @@
+Các pattern ở nhóm này cung cấp các cách tạo đối tượng, trong khi ẩn logic tạo, thay vì khởi tạo đối tượng trực tiếp
+bằng toán tử "new". Các pattern này cung cấp các cơ chế khởi tạo, giúp dễ dàng tạo các đối tượng phù hợp trong các
+tình huống cụ thể khác nhau.
+
+Mẫu này có thể được chia thành các pattern tạo lớp và các pattern tạo đối tượng. Trong khi các mẫu tạo lớp sử dụng
+hiệu quả tính kế thừa trong quy trình khởi tạo, các mẫu tạo đối tượng sử dụng ủy quyền (delegation) để hoàn thành
+công việc.

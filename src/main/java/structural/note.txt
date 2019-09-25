@@ -1,0 +1,5 @@
+Các pattern ở categories này là về việc tổ chức các class và các đối tượng khác nhau để tạo thành các cấu trúc lớn
+hơn và cung cấp các chứng năng mới.
+
+Mục tiêu chính của hầu hết các pattern ở category này là tăng chức năng của các lớp liên quan, mà không thay đổi
+nhiều thành phần của nó.
