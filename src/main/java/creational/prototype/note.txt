@@ -1,0 +1,29 @@
+Prototype Pattern là một pattern, có nhiệm vụ khởi tạo một đối tượng bằng cách clone một đối tượng đã tồn tại thay vì
+ khởi tạo với từ khóa new. Đối tượng mới là một bản sao giống 100% với đối tượng gốc, và chúng ta có thể thay đổi dữ
+liệu của nó mà không ảnh hưởng đến đối tượng gốc.
+
+Prototype pattern được dùng khi việc tạo một object tốn nhiều chi phí và thời gian, trong khi bạn đã có một object
+tương tự.
+
+Java cung cấp mẫu prototype pattern này bằng việc implement interface Cloneable và sử dụng method clone để tạo object
+ có đầy đủ thuộc tính của đối tượng ban đầu.
+
+Cách implement:
+- Prototype: khai báo một class, interface hoặc abstract class cho việc clone chính nó.
+- ConcretePrototype: các lớp này thực thi interface được cung cấp bởi Prototype để copy chính bản thân nó.
+- Client: tạo mới đối tượng bằng cách gọi Prototype thực hiện việc clone chính nó.
+
+Lợi ích của Prototype Pattern:
+- Cải thiện performace, giảm chi phí để tạo ra một đối tượng mới theo chuẩn, điều này sẽ làm tăng hiệu suất so với
+việc sử dụng từ khóa new để tạo đối tượng mới.
+- Giảm độ phức tạp cho việc khởi tạo đối tượng.
+- Khởi tạo đối tượng mới bẳng cách thay đổi một vài thuộc tính của đối tượng một cách dễ dàng hơn.
+
+Sử dụng prototype pattern khi:
+- Chúng ta có một object và cần phải tạo một object mới khác dựa trên object ban đầu mà không thể sử dụng toán tử new
+ hoặc các hàm constructor để tạo.
+- Muốn truyền một đối tượng vào một hàm nào đó để xử lý, thay vì truyền đối tượng gốc có thể ảnh hưởng thì ta có thể
+truyền đối tượng sao chép.
+- Chi phí của việc tạo đối tượng mới (sử dụng toán tử new) lớn.
+- Ẩn độ phức tạp của việc khởi tạo đối tượng từ phải client.
+- Cấu hình một ứng dụng với dynamic class.
