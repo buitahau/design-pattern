@@ -29,6 +29,11 @@ Lợi ích của Decorator Pattern:
 - Một đối tượng sẽ được bao bọc bởi nhiều wrapper cùng lúc.
 - Cho phép thêm hoặc xóa tính năng của một đối tượng lúc thực thi.
 
+Nhược điểm:
+- Khó remove một class wrapper khi nó đã được sử dụng.
+- Code nhìn có vẻ không được friendly lắm.
+- Khó để implement khi các hành vi của object không phụ thuộc vào thứ tự chạy.
+
 Sử dụng Decorator Pattern khi:
 - Khi muốn thêm tính năng mới cho các đối tượng mà không ảnh hưởng đến các đối tượng này.
 - Khi không thể mở rộng đối tượng bằng cách thừa kế. Chẳng hạn một class sử dụng từ khóa final, muốn mở rộng class

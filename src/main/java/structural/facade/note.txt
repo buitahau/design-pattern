@@ -1,0 +1,32 @@
+Facade Pattern là pattern cung cập các interface đơn giản thay cho một hệ thống con phức tạp. Nó có thể cung cấp các method hạn chế so với làm việc trực tiếp với các hệ thống con. Tuy nhiên, nó cung cấp chính xác những gì client cần.
+Nó định nghĩa một interface ở cấp cao hơn để người dùng có thể dễ dàng sử dụng hệ thống con này. Mục tiêu là che dấu các hoạt động phức tạp bên trong hệ thống con, giúp cho hệ thống con dễ sử dụng hơn.
+
+Facade giống với Adapter Pattern, nhưng mục đích sử dụng chúng khác nhau. Adapter pattern chuyển đổi mã nguồn để làm việc với mã nguồn khác. Facade pattern bao bọc mã nguồn gốc để giúp nó giao tiếp với mã nguồn khác dễ dàng hơn.
+
+Sử dụng facade khi bạn cần một interface đơn giản cho một hệ thống con phức tạp, nó sẽ giúp phân lớp hệ thống, làm cho hệ thống dễ quản lý hơn.
+
+Cách imlement:
+B1: Đầu tiên là kiểm tra có thể tạo một interface mà nó đơn giản hơn so với những gì hệ thống con đang có hay không. Bạn có thể đi đúng hướng nếu interface này làm cho client độc lập với nhiều lớp của hệ thống con.
+B2: Mô tả và implement interface này. Nó nên được gọi trực tiếp từ client và chuyển đến các hệ thống con phức tạp. Interface này chịu trách nhiệm khởi tạo và quản lý vòng đời của các hệ thống con, trừ khi client đã thực hiện việc này.
+B3: Đề tận dụng toàn bộ benefit của pattern này, hãy làm cho client chỉ giao tiếp với subsystem thông qua facade. Lúc này client sẽ được bảo vệ khỏi những thay đổi trong hệ thống con. Ví dụ, khi nâng cấp lên thì chúng ta chỉ cần sửa trong facade.
+B4: Nếu interface facade quá lớn, hãy suy nghĩ và split nó ra thành nhiều interface nhỏ hơn phù hợp.
+
+Các thành phần của Facade Pattern: 
+- Facade: biết rõ lớp của hệ thống con nào đảm nhận việc yêu cầu đáp ứng của client, sẽ chuyển yêu cầu của client đến các hệ thống con tương ứng.
+- Subsytems: cài đặt chức năng của hệ thống con, xử lý công việc được gọi bởi Facade. Các lớp này không cần biết Facade và không tham chiếu đến nó.
+- Client: sử dụng đối tượng Facade để tương tác với subsystems.
+
+Ưu điểm:
+- Bạn có thể tách các code của bạn ra khỏi sự phức tạp của các hệ thống con.
+- Giúp cho hệ thống đơn giản và dễ hiểu hơn trong việc sử dụng nó.
+- Giảm sự phụ thuộc của các code trong subsystem vào client.
+- Đóng gói nhiều API được thiết kế không tốt bằng một API đơn giản có thiết kế tốt hơn.
+
+Nhược điểm:
+- Facade trở thành god object, nó kết nối với tất cả các đối tượng con. Và nó sẽ trở nên phức tạp.
+
+Sử dụng Facade Pattern khi:
+- Tạo các method đơn giản hơn cho người sử dụng các hệ thống phức tạp.
+- Khi client phụ thuộc nhiều vào các lớp cài đặt, vì vậy ta chuyển chúng chỉ phụ thuộc vào lớp facade. Tăng khả năng độc lập và khả chuyển của hệ thống con.
+- Phân lớp các hệ thống con.
+- Bao bọc, che giấu tính phức tạp của hệ thống con với client.
