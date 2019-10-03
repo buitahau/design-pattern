@@ -8,7 +8,7 @@ import java.util.Map;
  */
 public class CellFactory {
 
-	private static Map<Color, Cell> mapCell = new EnumMap<>(Color.class);
+	private static Map<Color, Cell> mapCell = new EnumMap(Color.class);
 
 	private CellFactory() {
 	}

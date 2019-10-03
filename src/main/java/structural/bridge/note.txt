@@ -1,0 +1,45 @@
+Bridge Pattern được sử dụng để tách thành phần trừu tượng và thành thành implement thành các phần riêng biệt. Do đó các
+thành phần này có thể thay đổi một cách độc lập mà không ảnh hưởng đến các thành phần khác. Thay vì liên hệ với nhau
+bằng quan hệ kế thừa, hai thành phần này liên hệ với nhau thông qua quan hệ chứa trong "object composition".
+
+Từ đó có thể dễ dàng chỉnh sửa hoặc thay thế mà không làm ảnh hưởng đến những nơi có sử dụng lớp ban đầu.
+
+Điều đó có nghĩa là, ban đầu chúng ta thiết kế một class với rất nhiều xử lý, bây giờ chúng ta không muốn đề những xử
+ lý đó trong class nữa. Chúng ta sẽ tạo ra một class khác, và move các xử lý đó qua class mới. Khi đó, trong lớp cũ
+ sẽ giữ một đối tượng thuộc về lớp mới, và đối tượng này sẽ chịu trách nhiệm xử lý thay cho lớp ban đầu.
+
+Bridge Pattern nên được thiết kế trước khi phát triển hệ thống để Abstraction và Implementation có thể thực hiện một
+cách độc lập.
+
+Cách implement:
+- Abstraction (interface): định ra một abstract interface quản lý việc tham chiếu đến đối tượng hiện thực cụ thể.
+- Refined Abstraction (AbstractionImpl): hiện thực các method được định nghĩa trong Abstraction bằng cách sử dụng một
+ tham chiếu đến đối tượng Implementor
+- Implementor: là interface định ra các method.
+- ConcreteImplementor: là lớp hiện thực các method của interface Implementor.
+- Client: khách hàng sử dụng các chức năng thông qua Abstraction.
+
+Lợi ích của Bridge Pattern:
+- Bạn có thể tạo platform độc lập giữa class và app.
+- Giảm sự phụ thuộc giữa abstraction và implementation (loose coupling). Code trên client sẽ hoạt động với level
+abstraction, nó không phải tiếp xúc với implementation.
+- Giảm số lượng những lớp con không cần thiết, một số trường hợp sử dụng tính kế thừa sẽ tăng số lượng subclass rất
+nhiều.
+- Code gọn gàng hơn và kích thước ứng dụng sẽ nhỏ hơn.
+- Chia thành nhiều layer. Sau này  bạn có thể thay đổi các lớp trong mỗi layer độc lập với các layer khác. Ví dụ các
+class có thể hoạt động vói nhiều dabase khác nhau. Cách tiếp cậ này đơn giản hóa việc bảo trì và giảm thiểu rủi ro
+phá vỡ code hiện tại.
+- Dễ dàng mở rộng về sau, lớp ban đầu ủy thác các công việc đến các đối tượng thuộc hệ thống phân cấp đó thay vì làm
+mọi thứ.
+- Cho phép ẩn các chi tiết implement từ client. Do abstraction và implementation hoàn toàn độc lập nên chúng ta có
+thể thay đổi một thành phần mà không ảnh hưởng đến client.
+- Dễ dàng thay thế các đối tượng implementation lúc runtime.
+- Áp dụng nguyên tắc Open/ Close: bạn có thể introduce một lớp abstraction mới và implement nó một cách độc lập với nhau
+
+Nhược điểm:
+- Code phức tạp hơn.
+
+Các lưu ý:
+- Bridge thường được design trước, cho phép bạn phát triển các thành phần của ứng dụng một cách độc lập với nhau.
+Adapter thường được sử dụng với ứng dụng hiện có để làm cho một số lớp không tương thích hoạt động tốt với nhau.
+- Chúng ta có thể sử dụng Bridge với Abstract Factory hoặc Bridge và Builder cùng nhau.
