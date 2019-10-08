@@ -1,0 +1,46 @@
+Composite pattern là một sự tổng hợp những thành phần có quan hệ với nhau để tạo ra thành phần lớn hơn. Nó cho phép
+thực hiện các tương tác với tất cả các đối tượng trong mẫu tương tự nhau.
+
+Composite được sử dụng khi chúng ta cần xử lý một nhóm đối tượng tương tự như theo cách xử lý 1 object. Composite
+pattern sắp xếp các object theo cấu trúc cây để diễn giải 1 phần cũng như toàn bộ hệ thống phân cấp. Pattern này tạo
+ một lớp chứa nhóm đối tượng riêng của nó. Lớp này cung cấp các cách để sửa đối nhớm của cùng một đối tượng.
+
+Sử dụng Composite Pattern khi:
+- Khi bạn muốn implement một cấu trúc đối tượng giống như cây. Composite pattern cung cấp cho bạn 2 loại cấu trúc cơ
+bản xài chung interface là : object đơn giản (simple leaves) và container phức tạp (complex container). Một container
+ có thể bao gồm cả lá và container khác. Điều này cho phép bạn xây dựng một cấu trúc đối tượng đệ quy lồng nhau giống
+  như cây.
+- Khi bạn muốn client xử lý đồng nhất cả 2 đối tượng đơn giản và phức tạp. Tất cả các element được định nghĩa bởi
+Composite pattern xài chung 1 interface common. Vì vậy, khi sử dụng interface này, client không quan tâm về các class
+ implementation hoạt động như thế nào.
+
+Cách implement:
+- Đảm bảo rằng app của bạn hoạt động theo kiến trúc cây. Cố gắng break down thành cách element đơn giản và các
+container. Chú ý rằng các container phải chứa các element đơn giản và các container khác.
+- Khai báo/ Mô tả common interface với một list các method xài chung, có ý nghĩa dành cho cả element đơn giản và
+phức tạp.
+- Implement các lớp đơn giản. Một chương trình có thể có nhiều class lá khác nhau.
+- Implement các container phức tạp. Trong lớp này, cung cấp một array field dùng để chứa các đối tượng con. Array
+phải có khả năng chứa các đối tượng đơn giản và phức tạp, vì vậy hãy đảm bảo rằng nó được declare với common interface.
+Trong lúc implement container này, hãy nhớ rằng hầu hết các method của nó sẽ được delegate xuống các method của đối
+tượng con.
+- Cuối cùng, thêm các method để xóa và thêm các đối tượng con trong container. Bạn có thể khai báo các method này
+trong common interface, và các lớp lá sẽ mặc định là không implement. Hơi dư thừa, tuy nhiên điều đó sẽ giúp cho client
+ có thể xử lý thêm hoặc bớt các thành phần ngay trong lúc build cây.
+
+Nhược điểm:
+- Rất khó để tạo ra một common interface đáp ứng đầy đủ các chức năng cho đối tượng đơn giản và phức tạp.
+
+Một số lưu ý:
+- Bạn có thể sử dụng Builder để tạo đối tượng Composite phức tạp bởi vì bạn có thể lập trình các bước xâu dựng của nó
+ để nó làm việc đệ quy.
+- "Chain of Responsibility" thường được sủ dụng cùng với Composite. Trong trường hợp này, khi một component lá nhận
+được request thì nó được thông qua tất cả các component cha trong cây đó.
+- Bạn có thể sử dụng Iterators để duyệt cây Composite.
+- Bạn có thể sử dụng Visitor để thao tác trên toàn bộ cây Composite.
+- Bạn có thể implement các node lá, các node này sẽ được share với nhau dưới dạng Flyweights để tiết kiệm RAM
+- Composite và Decorator có cấu trúc diagram tương tự nhau, vì cả 2 đều dựa vào thành phần đệ quy đề tố chức/quản lý
+ một số lượng đối tượng. Decorator giống Composite nhưng nó chỉ có 1 đối tượng con. Tuy nhiên bạn có thể sử dụng
+ Decorator để extend các behavior của một đối tượng đặc biệt trong cây Composite.
+- Các thiết kế kiểu Decorator hoặc Composite thường có thể hưởng lợi từ Prototype. Áp dụng Prototype giúp bạn sao
+chép các đổi tượng phức tạp thay vì xây dựng chúng lại từ đầu.
