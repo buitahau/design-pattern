@@ -1,0 +1,50 @@
+Proxy có nghĩa là "ủy quyền" hay "đại diện". Mục đích xây dựng Proxy Pattern cũng chính là vì muốn tạo ra một đối
+tượng sẽ ủy quyền, thay thế cho một đối tượng khác.
+
+Proxy Pattern là mẫu thiết kế mà ở đó tất cả các truy cập trực tiếp đến một đối tượng nào đó sẽ được chuyển hướng vào
+ một đối tượng trung gian (Proxy class). Mẫu Proxy đại diện cho một đối tượng khác thực thi các phương thức, phương
+ thức đó có thể dược định nghĩa lại cho phù hợp với mục đích sử dụng.
+
+Proxy là một mẫu thiết kế cấu trúc cho phép bạn cung cấp một đối tượng thay thế hoặc giữ chỗ cho một đối tượng khác.
+Một proxy sẽ kiểm soát quyền truy cập vào đối tượng gốc, cho phép bạn thực hiện một cái gì đó trước và sau khi yêu
+cầu được gửi đến đối tượng ban đầu. Một proxy nhận yêu cầu của client, thực hiện một số công việc( kiểm soát truy
+cập, caching, ...) và sau đó chuyển yêu cầu này đến đối tượng gốc.
+
+Ưu điểm:
+- Bạn có thể control các đối tượng gốc (original class) mà không cần client biết về nó.
+- Bạn có thể quản lý lifecycle của đối tượng gốc.
+- Proxy có thể hoạt động nếu đối tượng gốc chưa sẵn sàng hoặc không tồn tại.
+- Bạn có thể introduce một proxy mới mà không cần thay đổi code trong đối tượng gốc hoặc client.
+- Nó cung cấp sự bảo vệ cho đối tượng gốc từ các module khác.
+- Giảm chi phí khi có nhiều truy cập vào đối tượng có chi phí khởi tạo ban đầu lớn.
+- Dễ nâng cấp, bảo trì.
+
+Nhược điểm:
+- Code có thể trở nên phức tạp khi bạn phải tạo ra nhiều class mới.
+- Response từ service có thể bị delay.
+
+Một số cách để sử dụng Proxy Pattern:
+- Lazy Initialization(virtual proxy): được sử dụng khi bạn có một đối tượng nặng gây lãng phí tài nguyên hệ
+thống khi cập nhật hoặc tạo mới, mặc dù thỉnh thoảng bạn mới cần nó. Thay vì bạn tạo đối tượng lúc app khởi tạo, bạn
+có thể delay quá trình khởi tạo đối tượng, chỉ tạo vào thời điểm thực sự cần.
+- Access control (protection proxy): được sử dụng khi bạn muốn chỉ có một client đặc biệt có quyền truy cập vào
+service của đối tượng gốc. Proxy sẽ chỉ chuyển yêu cầu của client đến đối tượng dịch vụ khi thông tin xác thực của
+client phù hợp với một số tiêu chí được định nghĩa.
+- Remote proxy: được sử dụng khi đối tượng dịch vụ được đặt trên một remote server. Trong trường hợp này, proxy sẽ
+nhận và xử lý tất cá các chi tiết khi làm việc với mạng, sau đó mới chuyển yêu cầu đến đối tượng dịch vụ gốc.
+- Logging proxy: được sử dụng khi bạn muốn lưu giữ history của các request đến service object. Proxy sẽ log tất cả các
+ request trước khi passing chúng tới service.
+- Caching proxy: được sử dụng khi bạn muốn cache kết quả của các request và quản lý vòng đời của bộ đệm này, đặc biệt
+ nếu kết quả lớn, tốn nhiều tài nguyên. Proxy sẽ implement các bộ đệm cho các yêu cầu định kỳ luôn mang kết quả giống
+  nhau. Proxy có thể sử dụng các tham số của các request làm các khóa phân biệt kết quả của bộ đệm.
+
+Cách implement:
+B1: Nếu không có một interface đại diện cho service có sẵn, hãy tạo 1 interface để proxy và service object có thể kết
+ nối với nhau. Proxy có thể implement interface của service object hoặc nó có thể là một lớp con của service, và nếu
+ theo cách này, proxy sẽ kế thừa các interface của service.
+B2: Tạo class proxy. Nó nên có một field để chứa service cần reference. Thường thì proxy sẽ tạo và quản lý vòng đời
+của service.
+B3: Implement các method của proxy tùy theo mục đích. Trong hầu hết các trường hợp, sau khi làm xong các công việc
+phụ trợ, proxy sẽ delegate request xuống service object.
+B4: Xem xét xem client nên gọi proxy hay real service.
+B5: Xem xét implement lazy initialization service object.
