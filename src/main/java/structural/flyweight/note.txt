@@ -1,0 +1,22 @@
+Flyweight pattern là mẫu cấu trúc cho phép chia sẻ các phần chung giữa các đối tượng, thay vì lưu trữ tất cả trong
+mỗi đối tượng. Điều này giúp tiết kiệm RAM, và performace của hệ thống được tối ưu.
+
+Flyweight pattern thường được sử dụng khi chúng ta cần tạo một số lượng lớn các đối tượng của một lớp nào đó. Do đó
+mỗi đối tượng đều đòi hỏi chiếm giữ một khoảng không gian bộ nhớ, nên với một số lượng lớn các đối tượng có thể gây
+ra các vấn đề nghiêm trọng đối với các hệ thống có dung lượng thấp. Flyweight được sử dụng để giảm tải cho bộ nhớ
+thông qua chia sẻ các đối tượng.
+
+Ưu điểm:
+- Tăng performance.
+- Cải thiện khả năng cache dữ liệu.
+- Giảm số lượng đối tượng được tạo ra.
+
+Cách implement:
+B1: Chia các field của class muốn apply flyweight thành 2 phần:
+    + the intrinsic state: các field chứa dữ liệu không thay đổi trên các đối tượng.
+    + the extrinsic state: các field chứa dữ liệu thay đổi theo từng đối tượng.
+B2: Tạo class chứa các trường chứa trạng thái intrinsic, và đảm bảo rằng chúng immutable. Các properties chỉ nên được
+ set trong constructor, và class này không có method setter.
+B3: Taọ các method cho các field có trạng thái extrinsic.
+B4: Nên tạo một factory class để quản lý các đối tượng flyweight. Nếu chưa có thì tạo mới, có rồi thì lấy từ pool ra.
+ Client sẽ get các object không thay đổi từ factory này.
