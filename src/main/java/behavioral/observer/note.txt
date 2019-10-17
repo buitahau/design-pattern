@@ -1,0 +1,33 @@
+Observer Pattern là một trong những pattern thuộc nhóm hành vi (behavior pattern). Nó định nghĩa mối phụ thuộc một -
+nhiều giữa các đối tượng, khi một đối tượng có sự thay đối trạng thái, tất cả các đối tượng phụ thuộc của nó sẽ được
+thông báo và cập nhật một cách tự động.
+
+Observer là một mẫu thiết kế hành vi cho phép bạn định nghĩa một cơ chế đăng ký để thông báo cho nhiều đối tượng về
+bất kỳ sự kiện nào xảy ra với đối tượng mà họ đang quan sát (observe).
+
+Sử dụng Observer Pattern khi:
+- Sử dụng observer pattern khi bạn muốn thay đổi trạng thái của một đối tượng thì sẽ thay đổi trạng thái của các đối
+tượng khác một cách tự động. Danh sách các đối tượng bị thay đổi không xác định trước hoặc có thể thay đối một cách
+linh hoạt.
+- Sử dụng mẫu này khi trong app của bạn có một số đối tượng phải quan sát những đối tượng khác trong một thời gian
+ngắn hoặc trong các trường hợp cụ thể. Danh sách subscription là động, vì vậy subscriber có thể join hoặc leave bất
+cứ lúc nào họ muốn.
+
+Các lưu ý:
+- Class publisher nên có 2 method đăng ký và hủy đăng ký đối với các subscriber.
+- Publisher sẽ có một mảng lưu trữ danh sách các subscriber.
+- Publisher chỉ nên giao tiếp với subscriber thông qua interface của subscriber. Điều này sẽ giúp cho publisher tách
+rời với các subscriber, không quan tâm đến các lớp implement cụ thể của subscriber.
+
+Cách implement:
+B1: Phân tích logic của hệ thống và cố gắng break down thành 2 phần:
+   + Core functionality: phần này độc lập với các phần code khác, sẽ có vai trò publisher
+   + Phần còn lại sẽ là subscriber.
+B2: Khai báo interface cho subscriber. Tối thiểu, interface này phải có 1 phương thức là update.
+B3: Khai báo interface cho publisher và định nghĩa 2 method là add và remove subscriber ra khỏi list. Hãy nhớ rằng
+publisher giao tiếp với subscriber thông qua interface subscriber.
+B4: Quyết định nơi đặt danh sách subscriber và implement method add/remove. Thường thì sẽ để trong abstract class để
+dễ mở rộng.
+B5: Tạo class implement cho publisher. Mỗi khi có action quan trọng, nó phải notify cho tất cả các subscriber.
+B6: Tạo class implement cho subscriber và implement update trong subscriber.
+B7: Client phải tạo các subscriber cần thiết và đăng ký với các publisher phù hợp.
