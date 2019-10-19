@@ -1,0 +1,49 @@
+Strategy pattern là một mẫu pattern cho phép bạn định nghĩa một nhóm các thuộc tính có cấu trúc giống nhau, đặt
+từng loại vào một class riêng biệt và khiến chúng có thể thay thế cho nhau.
+Strategy pattern cho phép định nghĩa tập hợp các thuật toán, đóng gói từng thuật toán lại và dễ dàng thay đổi linh
+hoạt các thuật toán bên trong đối tượng. Strategy cho phép thuật toán biến đổi độc lập khi người dùng sử dụng chúng.
+Ý nghĩa thực sự của Strategy Pattern là giúp tách rời phần xử lý của một chức năng cụ thể ra khỏi đối tượng. Sau đó
+tạo ra một tập hợp các thuật toán để xử lý chức năng đó, và lựa chọn mẫu thuật toán nào mà chúng ta cảm thấy đúng đắn
+ nhất khi thực thi chương trình.
+
+Strategy pattern cho phép bạn thực hiện một phương thức thep nhiều cách khác nhau, và trích xuất tất cả các thuật toán
+ này vào các class riêng biệt được gọi là "strategies".
+Lớp ban đầu (original), được gọi là "context", phải có một field để lưu tham chiếu đến một trong các strategies.
+Class context sẽ delegate đến đối tượng strategy thay thì nó phải tự thực hiện.
+Class context sẽ không có trách nhiệm chọn thuật toán thích hợp cho công việc. Thay vào đó, client sẽ pass strategy
+thích hợp vào context. Lớp context sẽ không biết nhiều về strategies. Nó sẽ làm việc với tất cả các strategies qua
+một interface chung.
+Cách này sẽ làm cho context độc lập với strategies, vì vậy bạn có thể add mới hoặc thay đổi strategy mà không cần
+thay đổi code trong context hoặc các strategy khác.
+
+Sử dụng Strategy Pattern khi:
+- Khi bạn muốn chuyển từ thuật toán này sang thuật toán khi trong thời gian chạy, strategy pattern cho phép bạn giáp
+tiếp thay đổi hành vi của đối tượng trong thời gian chạy.
+- Khi bạn có nhiều lớp tương tự nhau thực hiện một số hành vi giống nhau, chỉ khác nhau ở cách chạy.
+- Khi bạn muốn tách business logic ra khỏi chi tiết thuật toán, business logic sẽ thành context class, thuật toán sẽ
+thành strategy class. Nhờ đó client có thể sử dụng interface chung và dễ dàng chuyển đổi các implementation khi chạy.
+- Khi bạn có một toán tử điều kiện để chuyển đổi giữa các biến thể khác nhau của cùng một thuật toán. Mẫu pattern này
+ cho phép bạn loại bỏ điều kiện như vậy bằng cách trích xuất tất cả các thuật toán thành các lớp riêng biệt, tất cả
+ cùng implement từ một interface. Đối tượng original sẽ ủy quyền thực thi cho một trong những đối tượng này, thay vì
+ thực hiện tất cả trong các biến thể của thuật toán.
+
+ Cách implement:
+ B1: Trong context class, xác định một thuật toán thường xuyên thay đổi.
+ B2: Định nghĩa interface chung cho tất các các biến thể của thuật toán.
+ B3: Lần lượt implement từng thuật toán vào các class riêng biệt. Tất cả chúng nên được implement từ interface được
+ định nghĩa ở bước 2.
+ B4: Trong context class, thêm 1 trường để lưu đối tượng strategy. Cung cấp một method setter để thay đổi giá trị của
+  field này. Context class chỉ nên giao tiếp với đối tượng strategy  thông qua interface. Context có thể define một
+  interface giúp cho các đối tượng strategy có thể lấy data từ nó.
+ B5: Client tạo các strategy phù hợp với business và set vào cho context để hoạt động.
+
+ Ưu điểm:
+- Bạn có thể thay đổi các thuật toán trong thời gian chạy.
+- Tách biệc business logic và thuật toán.
+- Che dấu sự phức tạp, cấu trúc bên trong thuật toán.
+
+Nhược điểm:
+- Nếu bạn chỉ có vài thuật toán và chúng hiếm khi thay đổi thì pattern này sẽ làm cho code phức tạp hơn, idea là
+không nên sử dụng trong trường hợp này.
+- Client phải aware đc sự khác biệt giữa các strategy mà lựa chọn phù hợp.
+
