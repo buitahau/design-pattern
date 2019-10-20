@@ -1,2 +1,8 @@
 Những mẫu thiết kế này mô tả sự tương tác giữa các đối tượng và đặc biệt quan tâm đến giao tiếp giữa các đối tượng.
 Điều này giúp cho các đối tượng giao tiếp dễ dàng và linh hoạt hơn.
+
+Hầu hết các mẫu hành vi (Behavior Pattern) xoay quanh nguyên tắc "thành phần đối tượng (composition) hơn là thừa kế
+(inheritance)". Nguyên tắc này nói rằng, thay vì mở rộng từ một lớp hiện có, thiết kế lớp của bạn có một giá trị để
+tham chiều một lớp hiện có mà bạn muốn sử dụng. Trong java, nó được thực hiện bằng cách khai báo một biến tham chiều
+đối tượng của lớp hiện có. SAu đó, bằng cách khởi tạo đối tượng thông qua hàm tạo constructor hoặc phương thức
+setter, sau đó sử dụng đối tượng đã được tham chiếu.

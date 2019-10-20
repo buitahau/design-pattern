@@ -1,0 +1,42 @@
+Chain of Responsibility là một trong những pattern thuộc nhóm behavior patter, nó cho phép một đối tượng gửi yêu cầu
+nhưng không biết đối tượng nào sẽ nhận và xử lý nó. Điều này được thực hiện bằng cách kết nối các đối tượng nhận yêu
+cầu thành một chuỗi và gửi yêu cầu theo chuỗi đó.
+Chain of Responsibility Pattern hoạt động như một danh sách liên kết với việc đệ quy duyệt qua các phần tử.
+
+Chain of Responsibility cho một mẫu thiết kế cho phép bạn chuyển yêu cầu dọc theo chuỗi. Khi nhận được yêu cầu, mỗi
+trình xử lý quyết định xử lý yêu cầu hoặc chuyển nó đến trình xử lý tiếp theo trong chuỗi.
+
+Mỗi trình xử lý, được gọi là handler, nên được chuyển sang thành một lớp riêng biệt và có một phương thức để execute.
+ Mẫu này đề nghị bạn liên kết các handler thành một chuỗi. Mỗi handler cho một trường tham chiếu đến handler tiếp
+ theo trong chuỗi. Ngoài việc xử lý yêu cầu, handler sẽ chuyển yêu cầu dọc theo chuỗi. Yêu cầu đi dọc theo chuỗi cho
+ đến khi tất cả những người xử lý có cơ hội xử lý nó.
+
+Một handler có thể quyết định không chuyển yêu cầu xuống handler khác, đồng thời dừng mọi xử lý tiếp theo của chuỗi. Tất
+cả các handler nên cùng implement từ một interface giống nhau. Mỗi handler chỉ nên quan tâm đến việc xử lý.
+
+Sử dụng Chain Of Responsibility khi:
+- Chương trình dự kiến sẽ xử lý các loại yêu cầu khác nhau theo nhiều cách khác nhau, nhưng loại yêu cầu gì và trình
+tự của chúng thì không được biết trước. Pattern này cho phép bạn định nghĩa chúng thành các handler, liên kết chúng
+lại với nhau. Khi có một yêu cầu, tất cả các handler đều có cơ hội xử lý yêu cầu đó.
+- Sử dụng mẫu này khi bạn muốn thực thi các handler theo một trình tự cụ thể. Bởi vì pattern này cho phép bạn liên
+kết các handler theo thứ tự bạn muốn, tất cả các yêu cầu sẽ được thực hiện theo thứ tự chính xác mà bạn đã lên kế hoạch.
+- Sử dụng pattern này khi bạn muốn thay đổi các handler và thứ tự của chúng khi runtime.
+
+Cách implement:
+B1: Khai báo handler interface, định nghĩa một method chung để xử lý các request. Điều này sẽ quyết định cách mà
+client pass dữ liệu vào method. Cách đơn giản là chuyển chúng thành một object và pass vào method như một argument.
+B2: Nên tạo một lớp trừu tượng để implement handler interface. Điều này sẽ giúp giảm thiểu sự trùng lặp trong các
+handler. Class này nên có một field để lưu trũ đến một handler tiếp theo trong chuỗi, nên làm cho trường này
+immutable. Tuy nhiên nếu bạn muốn sửa handler này, bạn nên có một method setter để thay đổi giá trị của field tham
+chiếu. Ngoài ra lớp này nên có một method chuyển tiếp xử lý sang handler tiếp theo.
+B3: Implement các handler, extend từ abstract class ở bước 2. Mỗi handler sẽ có 2 nhiệm vụ: xử lý yêu cầu và gọi chuyển
+đến handler tiếp theo.
+B4: Client sẽ tự lắp ráp chuỗi hoặc nhận chuỗi có sẵn từ đối tượng khác. Bạn có thể xây dựng một factory tạo chuỗi
+theo cấu hình cài đặt.
+
+Chú ý:
+- Chú ý cách định nghĩa và sử dụng method linkWith trong demo.
+- Chuỗi có thể có một handler duy nhất.
+- Một số request không thể đi hết chuỗi mà bị chặn ở một handler nào đó.
+- Chain of Responsibility thường được sử dụng với Composite. Khi một thành phần lá được yêu cầu, nó sẽ pass request
+qua tất cả các thành phần cha trong cây.
