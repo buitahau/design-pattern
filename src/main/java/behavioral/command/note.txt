@@ -1,0 +1,7 @@
+Command là một pattern cho phép biến một request thành một đối tượng độc lập chứa tất cả các thông tin về request đó. Chuyển đổi này cho phép bạn tham số hóa các phương thức với các yêu cầu khác nhau.
+
+Command pattern đề nghĩ rằng các đối tượng client không nên gửi trực tiếp các yêu cầu này xuống business logic. Thay vào đó, bạn nên trích xuất tất cả các chi tiết yêu cầu, chẳng hạn như đối tượng được gọi, tên của method, và danh sách các parameters vào một class riêng biệt với một method execute duy nhất.
+Các đối tượng command đóng vai trò cầu nối giữa client và business logic. Client chỉ kích hoạt command, và command sẽ xử lý tất cả chi tiết.
+Các đối tượng command thường implement từ cùng một interface. Thông thường, nó chỉ có duy nhất một method execute không tham số. Điều này cho phép bạn sử dụng các command khác nhau, mà không xác định nó là command nào.
+
+
