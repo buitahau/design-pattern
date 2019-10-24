@@ -4,4 +4,36 @@ Command pattern đề nghĩ rằng các đối tượng client không nên gửi
 Các đối tượng command đóng vai trò cầu nối giữa client và business logic. Client chỉ kích hoạt command, và command sẽ xử lý tất cả chi tiết.
 Các đối tượng command thường implement từ cùng một interface. Thông thường, nó chỉ có duy nhất một method execute không tham số. Điều này cho phép bạn sử dụng các command khác nhau, mà không xác định nó là command nào.
 
+Sử dụng Command Pattern khi:
+- Bạn muốn tham số hóa các hoạt động thành cách đối tượng. Command Pattern cho phép bạn cụ thể hóa một phương thức thành một đối tượng cụ thể.
+Thay đổi này mở ra rất nhiều lợi ích:
+    + Bạn có thể truyền các command làm đối số.
+    + Lưu trữ chúng bên trong đối tượng khác.
+    + Chuyển đổi command trong lúc runtime,...
+- Bạn muốn lên lịch thực hiện các hoạt động hoặc thực hiện chúng từ xa. Giống như bất kỳ đối tượng nào khác, một command có thể được serialize, có nghĩa dễ dàng chuyển đổi nó thành một chuỗi để có thể ghi vào tệp hoặc cơ sở dữ liệu. Sau đó, khôi phục như đối tương command ban đầu. Vì vậy , bạn có thể delay, lên schedule để thực hiện nó. Tương tự, bạn có thể đưa nó vào queue, hoặc gửi remote qua.
+- Bạn muốn thực hiện đảo ngược các hoạt động. Mặc dù có rất nhiều cách undo/redo, nhưng Command pattern có sẽ là cách phổ biến nhất.
+Để thực hiện sự đảo ngược này, bạn cần implement history của các command đã thực hiện. Một history command là một stack chứa tất cả các đối tượng lệnh đã được thực thi cùng các bản sao liên quan đền trạng thái của ứng dụng.
+Phương pháp này có 2 nhược điểm:
+    + Không dễ để lưu trạng thái của command object, vì vấn đề private.
+    + Tốn RAM.
+Bạn có thể khắc phục bằng cách thực hiện lệnh nghịch đảo thay vì khôi phục command object cũ. Cách này cũng khó thực hiện hoặc có thể không thực hiện được.
+
+Cách implement Command Pattern:
+B1: Định nghĩa một interface với một method execute.
+B2: Định nghĩa các class command cụ thể. Mỗi lớp phải có một tập các field để lưu trữ các đối số cần thiết, cùng một field tham chiếu đến đối tượng người nhận thực tế (receive). Tất cả các giá trị này phải được khởi tạo thông qua lênh constructor.
+B3: Xác định các class đóng vài trò người gửi (sender). Sender chỉ nên giao tiếp với command thông qua interface.
+B4: Sender chỉ execute command object thông qua method execute của interface.
+B5: Client nên khởi tạo các đối tượng sau:
+    + Receiver.
+    + Command object, và liên kết chúng với các receiver cần thiết.
+    + Sender, và liên kết chúng với các command.
+
+Ưu điểm của Command Pattern:
+- Bạn có thể implement undo/redo.
+- Bạn có thể trì hõan các action command.
+- Bạn có thể gom các command đơn giản thành một command phức tạp.
+
+Nhược điểm:
+- Code trở nên phức tạp vì bạn phải tạo thêm một layer nữa giữa sender và receiver.
+
 
