@@ -1,0 +1,48 @@
+Visitor Pattern là một pattern cho phép bạn cách các thuật toán ra khỏi đối tượng mà chúng hoạt động.
+Visitor Pattern co phép định nghĩa các thao tác (operations) trên một tập hợp các đối tượng không đồng nhất về kiểu
+mà không làm thay đổi các đối tượng đó.
+Visitor Pattern đề nghị rằng bạn nên đặt các hành vi mới vào 1 class riêng gọi là "visitor", thay vì tích hợp nó vào
+lớp hiện có (original object). Đối tượng original được pass thành tham số truyền vào method của visitor, đồng thời
+cung cấp quyền truy cập đến những dữ liệu cần thiết có trong đối tượng.
+Visitor sử dụng một kỹ thuật gọi là Double Dispatch, giúp thực thi phương thức trên một đối tượng mà không cần điều
+kiện rườm rà. Đối tượng original chấp nhận (accept) một visitor và nói với nó rằng phương thức truy cập nào nên được
+thực hiện. Bạn sẽ chỉ thêm 1 method vào đối tượng original, thay đổi này là không đáng kể.
+
+Cấu trúc Visitor Pattern:
+- Visitor Interface: định nghĩa một nhóm các method "visit", các method này thường sử dụng các đối tượng original làm
+ tham số. Chúng có thể có cùng tên nhưng bắt buộc phải khác kiểu tham số.
+- Concrete Visitor: implement các method của Visitor Interface. Bạn có thể sử dụng abstract class để giảm trùng lắp
+code.
+- Element Interface: định nghĩa method "accepting" cho visitor. Method này nên có 1 parameter là Visitor Interface.
+- Concrete Element: implement method "accepting". Mục đích của method này là pass visitor đến đối tượng element tương
+ ứng.
+- Client: tạo ra các đối tượng và gắn chúng lại với nhau.
+
+Sử dụng Visitor Pattern khi:
+- Khi bạn cần thực hiện một thao tác trên tất cả các thành phần của một đối tượng phức tạp (ví dụ: cây, ...). Pattern
+ này cho phép bạn thực hiện một thao tác trên tất cả các đối tượng với các lớp khác nhau bằng cách cho phép một đối
+ tượng visitor truy cập vào, và thực hiện các hành vi cần thiết.
+- Clean business logic khỏi các hành vi phụ trợ. Pattern này làm cho các class original tập trung vào các công việc
+chính, các hành vi/hoạt động khác sẽ được trích xuất vào một clas khác.
+- Khi một hành vi chỉ có ý nghĩa trong một số lớp của hệ thống phân cấp, nhưng không phải tất cả. Bạn có thẻ trích
+xuất các hành vi này vào một mới riêng biệt và chỉ implement method accept ở các đối tượng liên quan, phần còn lại để
+ trống.
+
+Cách implement Visitor Pattern:
+B1: Định nghĩa một visitor interface với một list các method "visiting", mỗi method có param là một concrete
+element khác nhau đã có sẵn.
+B2: Khai báo một element interface. Trong interface này nên có một method "acceptance" với tham số là visitor
+interface được tạo ở bước 1.
+B3: Implement method "acceptance" ở các class concrete element. Method này chỉ đơn giản là gọi một method "visiting"
+phù hợp trong visitor interface.
+B4: Class element chỉ nên giao tiếp với visitor interface. Tuy nhiên, visitor lại phải biết tất cả các concrete
+element, được dùng làm tham số của các method "visiting".
+B5: Với mỗi hành vi, bạn tạo một class concrete visitor, implement visitor interface ở bước 1.
+B6: Client phải tạo đối tượng visitor, và pass chúng vào các element thông qua method "acceptance".
+
+Ưu điểm:
+- Cho phép một hoặc nhiều hành vi được áp dụng cho một tập hợp các đối tượng tại thời điểm runtime, tách rời các hành
+ vi khỏi cấu trúc đối tượng.
+
+Nhược điểm:
+- Bạn phải cập nhật tất cả các visitor mỗi khi có một element thêm vào hoặc bị xóa ra.
