@@ -1,0 +1,50 @@
+Iterator Pattern là một mẫu thiết kế cho phép bạn duyệt qua các phần tử có một collection (stack, list, tree...) mà
+không để lộ đại diện bên dưới của nó.
+Iterator được thiết kế cho phép xử lý nhiều loại tập hợp khác nhau bằng cách truy cập những phần tử của tập hơn với
+cùng một phương pháp, cùng một cách thức định sẵn, mà không cần phải hiểu rõ về chi tiết bên trong của những tập hợp
+này.
+Ý tưởng chính của pattern này là chuyển các hành vi dùng để duyệt collection này vào một đối tượng riêng biệt gọi là
+"iterator". Ngoài việc tự thực hiện thuật toán, đối tượng iterator này sẽ đóng gói tất cả các thông tin để duyệt như
+vị trí hiện tại (current position), còn phần tử tiếp theo hay không (hasNext), lấy phần tử tiếp theo (getNext). Các
+thông tin này là giống nhau dùng để duyệt một collection. Vì vậy iterator có thể hoạt động trên nhiều collection khác
+ nhau, miễn chúng thích hợp. Nếu bạn cần một cách đặc biệt để duyệt qua một collection, bạn chỉ cần tạo một lớp lặp
+ mới, mà không cần thay đổi collection hoặc trên client.
+
+Iterator pattern cung cấp một interface đơn giản, nhất quán để làm việc với các collection khác nhau. Giả sử client
+phải làm việc với một tập hợp phức tạp và rắc rối. Client không biết cách làm việc với nó như thế nào. Client có thể
+sử dụng iterator để làm cầu nối với tập hợp. Từ đó client có thể sử dụng các phương thức cơ bản của Iterator để giao
+tiếp với tập hợp.
+
+Các thành phần của Iterator Pattern:
+- Iterator Interface: khai báo các method cần thiết để duyệt qua collection: get phần tử tiếp theo, get phần tử hiện tại, kiểm tra xem còn phần tử nào hay không ,...
+- Concrete Iterator: implement Iterator Interface ở bước 1, giữ index khi duyệt qua các phần tử.
+- Collections Interface: khai báo một hoặc nhiều method để có các iterator phù hợp với nó.
+- Concrete Collections: implement các method tạo iterator, dùng để tạo ra các concrete interface thích hợp.
+- Client: làm việc với iterator và collections thông qua interface. Vì vậy bạn có thể làm việc với iterator và collections khác nhau.
+
+Sử dụng Iterator Pattern khi:
+- Khi bạn có cấu trúc dữ liệu phức tạp, nhưng không muốn client biết và client cũng không quan tâm. Iterator Pattern sẽ đóng gói lại và chỉ cung cấp cho client các method cần thiết,
+dùng để duyệt dữ liệu. Điều này sẽ bảo vệ collection khỏi những tác động không cần thiết từ client.
+- Giảm duplicate code trong việc duyệt collections.
+- Khi bạn muốn duyệt một cấu trúc phức tạp hoặc không biết trước. Iterator pattern cung cấp một số method trong
+interface cho collection và client. Vì code của bạn đang sử dụng các interface này,
+nên code sẽ không đổi khi bạn thay đổi collection.
+
+Cách implement:
+B1: Khai báo iterator interface. Nó nên có các method như lấy phần tử tiếp theo, kiểm tra còn phần tử hay không, lấy phần tử trước, ...
+B2: Khai báo trong collection interface một method để tạo iterator interface. Bạn có thể có nhiều method tạo interator nếu bạn có nhiều cách duyệt collection.
+B3: Tạo concrete class implement cho iterator interface ở bước 1. Một đối tượng iterator phải liên kết với một đối tượng collection duy nhất.
+Thông thường, liên kết này được thiết lập thông qua hàm tạo iterator.
+B4: Implement method tạo iterator trong collection class. Ý tưởng chính của nó là cung cấp cho client một cách để tạo iterator cho collection dễ dàng hơn.
+B5: Client tạo iterator và sử dụng.
+
+Ưu điểm:
+- Bạn có thể truy cập song song trên cùng một tập hợp thì mỗi đối tượng iterator có chứa trạng thái riêng của nó.
+- Duyệt những collections phức tạp.
+- Chúng ta có thể implement các loại collections mới và iterator mới, sau đó chuyển  chúng vào code hiện có mà không
+vi phạm bất cứ nguyên tắc gì.
+- Tách phần cài đặt các phương thức của tập hơn và phần duyệt ra từng class riêng lẻ.
+
+Nhược điểm:
+- Đối với một số collections đơn giản thì bạn không nên sử dụng pattern này.
+- Sử dụng iterator có thể kém hiệu quả hơn là sử dụng các method duyệt default của collections.
