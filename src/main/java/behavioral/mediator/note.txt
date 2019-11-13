@@ -1,0 +1,48 @@
+Mediator Pattern là một mẫu thiết kế cho phép bạn giảm sự phụ thuộc hỗn loạn giữa các đối tượng. Mẫu này hạn chế giao tiếp trực tiếp giữa các đối tượng và buộc chúng chỉ connect thông qua 1 đối tượng duy nhất là mediator.
+Mediator Pattern được sử dụng để giảm sự phức tạp trong giao tiếp giữa các lớp và các đối tượng. Mô hình này cung cấp một lớp trung gian có nhiệm vụ xử lý thông tin giữa các lớp, hỗ trợ bảo trì code dễ dàng bằng cách giảm sự phụ thuộc giữa các đối tượng với nhau.
+Giảm sự phụ thuộc ở đây có thể hiểu là các đối tượng tương đồng không giao tiếp trực tiếp với nhau mà giao tiếp thông qua người trung gian, và nó cho phép thay đổi cách tương tác giữa chúng một cách độc lập.
+Kết quả là các thành phần này chỉ phụ thuộc vào một class mediator duy nhất thay vì phụ thuộc vào nhiều đối tượng khác nhau.
+Mediator Pattern cho phép bạn đóng gói một mạng lưới quan hệ phức tạp giữa các đối tượng khác nhau bằng một đối tượng
+ mediator. Một lớp càng ít phụ thuộc thì càng dễ sửa đối, mở rộng hoặc reuse class đó.
+
+Các thành phần của Mediator Pattern:
+- Components: là các class chứa logic khác nhau. Mỗi class sẽ có một biến tham chiếu đến một mediator. Class này tham
+ chiếu đến mediator interface, vì vậy nó có thể sử dụng lại trong chương trình khác bằng cách liên kết nó với một
+ mediator khác.
+- Mediator Interface: chứa các phương thức giao tiếp với components và thường chỉ khai báo một phương thức
+notification duy nhất.
+- Concrete Mediator: implement mediator interface. Thường lưu tham chiếu đến các components và đôi khi quản lý vòng
+đời của chúng.
+- Client: tạo mediator, components và kết nối chúng lại với nhau.
+
+Sử dụng Mediator Pattern khi:
+- Khó khăn để thay đổi một số class vì chúng được liên kết chặt chẽ với một nhóm các class khác. Pattern này sẽ cho
+phép bạn trích xuất tất cả các mối quan hệ giữa các lớp thành một class riêng biệt, tách biệt các thay đổi của một
+class cụ thể ra khỏi phần còn lại.
+- Khi bạn không thể reuse lại các component trong một chương trình khác vì nó quá phụ thuộc vào các thành phần khác.
+Pattern này làm cho các thành phần riêng lẻ trở nên không biết về các thành phần khác. Chúng có thể liên lạc với
+nhau, gián tiếp thông qua mediator. Để sử dụng lại đối tượng, bạn cần cung cấp cho nó một đối tượng mediator mới.
+- khi bạn thấy mình tạo ra nhiều class con chỉ để sử dụng lại một số hành vi cơ bản trong các bối cảnh khác nhau. Mối
+ quan hệ giữa các component sẽ được gom lại trong class mediator. Điều này sẽ giúp các thành phần này dễ dàng reuse
+ lại, khi bạn chỉ cần thay mediator hiện tại bằng một mediator mới, mà không làm thay đổi code ở trong các component.
+
+Cách implement:
+B1: Xác định một nhóm các class hiện tại được liên kết chặt chẽ với nhau. Khi ta tách các class này độc lập, chúng sẽ
+ làm cho việc bảo trì hoặc reuse các class này đơn giản hơn.
+B2: Khai báo mediator interface và các method giao tiếp giữa mediator và các components. Interface này rất quan trọng
+ khi bạn muốn sử dụng lại các component trong các bối cảnh khác nhau. Miễn là các thành phần này hoạt động với
+ mediator  thông qua interface, bạn có thể thay đổi sang mediator khác một cách dễ dàng.
+B3: Implement concrete mediator class. Class này thường sẽ lưu trữ tất cả các tham chiếu đến các components mà nó
+quản lý.
+B4: Bạn có thể mở rộng bằng cách làm cho mediator chịu trách nhiệm tạo và hủy các component. Sau này, mediator có thể
+ giống với một factory hoặc một facade.
+B5: Các component nêu lưu trữ một thành chiếu đến mediator. Connection thường được thiết lập trong constructor.
+B6: Thay đổi các logic trong component để chúng gọi mediator thay vì gọi trực tiếp các components khác. Đưa việc gọi
+các thành phần khác vào mediator.
+
+Ưu điểm:
+- Giảm phụ thuộc code giữa các components;
+- Reuse component.
+
+Nhược điểm:
+- Mediator class sẽ trở nên phức tạp và nghẽn. Nó sẽ trở thành God Object.
