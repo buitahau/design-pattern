@@ -1,0 +1,47 @@
+Memento Pattern là pattern cho phép bạn lưu và khôi phục trạng thái trước đó của đối tượng mà không tiết lộ chi tiết bên trọng của nó.
+Dữ liệu được lưu trong đối tượng memento không thể được truy cập bên ngoài đối tượng gốc. Điều này bảo vệ tính toàn vẹn của dữ liệu.
+Hoàn tác (Ctrl + Z) là một trong những thao tác được sử dụng nhiều nhất trong trình soạn thảo văn bản (editor).
+Mẫu thiết kế Memento được sử dụng để thực hiện thao tác undo. Điều này được thực hiện bằng cách lưu trạng thái hiện tại của đối tượng mỗi khi nó thay đổi trạng thái, từ đó có thể khôi phục nó trong mọi trường hợp có lỗi.
+Memento đề nghị rằng các method tạo snapshot nên nằm trong đối tượng original. Do đó, thay vì các đối tượng khác tạo, chính đối tượng original sẽ tạo vì nó có toàn quyền truy cập vào trạng thái của chính nó.
+Pattern đề nghị rằng nên lưu trữ trạng thái của đối tượng đó vào một đối tượng tên là memento. Đối tượng memento không thể được truy cập từ bất kỳ đối tượng nào khác trừ đối tượng tạo ra nó. Pattern cũng đề nghị nên lưu trữ các memento trong một đối tượng gọi là “caretakers”.
+
+Cấu trúc của Memento Pattern:
+- Original: đối tượng gốc. Nó tạo snapshot cho chính nó, và restore tình trạng từ snapshot khi cần.
+- Memento: là một đối tượng snapshot. Nó thường là đối tượng immutable và data sẽ được pass qua constructor.
+- Caretaker: là đối tượng capture snapshot từ đối tượng orignal. Ngoài ra, nó còn restore giá trị của đối tượng
+memento vào đối tượng original. Caretaker sẽ lưu trũ memento vào một stack. Khi đối tượng original muốn back lại, nó
+sẽ lấy memento từ trên top của stack và pass memento này cho đối tượng original.
+
+Lưu ý:
+- Memento class nên ở trong class original. Nó sẽ giúp đối tượng original toàn quyền truy cập vào thuộc tính của
+memento, thậm chí thuộc tính đó là private.
+- Caretaker nên có quyền hạn chế truy cập vào memento. Caretaker chỉ có việc lưu trữ memento, không được phép
+thay đổi giá trị của memento.
+- Care taker nên theo dõi vòng đời của đối tượng orignal để có thể xóa những memento đã lỗi thời (quá cũ). Ví dụ nên
+chỉ lưu 10 step undo.
+
+Sử dụng Memento Pattern khi:
+- Khi muốn tạo các snapshot tình trạng có khả năng restore lại tình trạng của đối tượng. Memento pattern cho phép bạn
+ copy toàn bộ tình trạng của đối tượng gốc và lưu trữ vào một đối tượng khác. Mặc dù hầu hết mọi người hay nhớ mẫu
+ này vì việc sử dụng undo, nhưng nó cũng được sử dụng khi xử lý các transaction (ví dụ: bạn cần roll back lại thao
+ tác khi bị lỗi).
+
+Cách implement:
+B1: Xác định class sẽ giữ vai trò original.
+B2: Tạo memento class. Từng phần tử, khai báo các trường giống như các trường trong đối
+tượng original.
+B3: Làm cho class memento immutable. Memento class nên nhận data 1 lần, thông qua constructor; class này không có
+method setter.
+B4: Nếu ngôn ngữ lập trình của bạn hỗ trợ nested classes, bạn nên đưa class memento vào đối tượng original. Nếu không
+ thì tạo một interface, và làm cho tất cả các đối tượng khác sẽ sử dụng interface này để tham chiếu đến memento. Bạn
+ có thể thêm một vài method, nhưng không được làm thay đổi giá trị bên trong memento.
+B5: Thêm method tạo memento vào trong class original.
+B6: Thêm method restore data từ memento vào class original. Method này nên có 1 param là memento.
+B7: Tạo đối tượng caretaker. Đối tượng này sẽ lưu trữ memento. Nó sẽ có các method như init, addMemento, popMemento.
+
+Ưu điểm:
+- Lưu trữ các snapshot.
+- Tách các code lưu trữ sang đối tượng khác như caretaker, giúp cho code trong original class đơn giản hơn.
+
+Nhược điểm:
+- Tốn RAM vì phải tạo nhiều memento.
